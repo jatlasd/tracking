@@ -21,49 +21,88 @@ const Filter = () => {
     setValue(newValue);
   };
 
-  const fetchEntries = useCallback(async () => {
-    if (!dateRange.from) return;
-    console.log(`From: ${dateRange.from}, To: ${dateRange.to}`);
+  // const fetchEntries = useCallback(async () => {
+  //   if (!dateRange.from) return;
+  //   console.log(`From: ${dateRange.from}, To: ${dateRange.to}`);
 
-    const formatStartDate = dateRange.from.toLocaleDateString("en-US");
-    const formatEndDate = dateRange.to ? dateRange.to.toLocaleDateString("en-US") : formatStartDate;
+  //   const formatStartDate = dateRange.from.toLocaleDateString("en-US");
+  //   const formatEndDate = dateRange.to ? dateRange.to.toLocaleDateString("en-US") : formatStartDate;
 
-    const response = await fetch("/api/stored/entry");
-    const entries = await response.json();
-    const filteredResults = entries.filter((entry) => {
-      const entryDate = new Date(entry.date);
-      const startDate = new Date(formatStartDate);
-      const endDate = new Date(formatEndDate);
-      return entryDate >= startDate && entryDate <= endDate;
-    });
-    setFilteredEntries(filteredResults);
-  }, [dateRange]);
+  //   const response = await fetch("/api/stored/entry");
+  //   const entries = await response.json();
+  //   const filteredResults = entries.filter((entry) => {
+  //     const entryDate = new Date(entry.date);
+  //     const startDate = new Date(formatStartDate);
+  //     const endDate = new Date(formatEndDate);
+  //     return entryDate >= startDate && entryDate <= endDate;
+  //   });
+  //   setFilteredEntries(filteredResults);
+  // }, [dateRange]);
 
-  useEffect(() => {
-    fetchEntries();
-    if (dateRange.from && dateRange.to) {
-      setIsRange(dateRange.from.toDateString() !== dateRange.to.toDateString());
+  // useEffect(() => {
+  //   fetchEntries();
+  //   if (dateRange.from && dateRange.to) {
+  //     setIsRange(dateRange.from.toDateString() !== dateRange.to.toDateString());
+  //   }
+  // }, [dateRange, fetchEntries]);
+
+  // useEffect(() => {
+  //   if (dateRange.from) {
+  //     const uniqueDates = getUniqueDatesWithEntries(filteredEntries);
+  //     let dateString = dateRange.from.toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  //     let newFilteredEntries = filteredEntries;
+
+  //     if (isRange && uniqueDates.length > value) {
+  //       const selectedDate = uniqueDates[value];
+  //       dateString = selectedDate.toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  //       newFilteredEntries = filteredEntries.filter(entry => 
+  //         new Date(entry.date).toLocaleDateString("en-US") === selectedDate.toLocaleDateString("en-US")
+  //       );
+  //     }
+
+  //     setDisplayFilteredEntries(newFilteredEntries);
+  //     setDisplayDate(dateString);
+  //   }
+  // }, [filteredEntries, value, dateRange, isRange]);
+
+  // Optimized fetchEntries function
+const fetchEntries = useCallback(async () => {
+  if (!dateRange.from) return;
+
+  const response = await fetch("/api/stored/entry");
+  const entries = await response.json();
+  const startDate = new Date(dateRange.from).getTime();
+  const endDate = dateRange.to ? new Date(dateRange.to).getTime() : startDate;
+  const filteredResults = entries.filter((entry) => {
+    const entryDate = new Date(entry.date).getTime();
+    return entryDate >= startDate && entryDate <= endDate;
+  });
+  setFilteredEntries(filteredResults);
+}, [dateRange.from, dateRange.to]); // Only depend on from and to
+
+// Combined useEffect
+useEffect(() => {
+  fetchEntries();
+  if (dateRange.from && dateRange.to) {
+    setIsRange(new Date(dateRange.from).getTime() !== new Date(dateRange.to).getTime());
+  }
+
+  if (dateRange.from) {
+    const uniqueDates = getUniqueDatesWithEntries(filteredEntries);
+    const dateString = new Date(dateRange.from).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    let newFilteredEntries = filteredEntries;
+
+    if (isRange && uniqueDates.length > value) {
+      const selectedDate = uniqueDates[value];
+      newFilteredEntries = filteredEntries.filter(entry => 
+        new Date(entry.date).getTime() === new Date(selectedDate).getTime()
+      );
     }
-  }, [dateRange, fetchEntries]);
 
-  useEffect(() => {
-    if (dateRange.from) {
-      const uniqueDates = getUniqueDatesWithEntries(filteredEntries);
-      let dateString = dateRange.from.toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      let newFilteredEntries = filteredEntries;
-
-      if (isRange && uniqueDates.length > value) {
-        const selectedDate = uniqueDates[value];
-        dateString = selectedDate.toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        newFilteredEntries = filteredEntries.filter(entry => 
-          new Date(entry.date).toLocaleDateString("en-US") === selectedDate.toLocaleDateString("en-US")
-        );
-      }
-
-      setDisplayFilteredEntries(newFilteredEntries);
-      setDisplayDate(dateString);
-    }
-  }, [filteredEntries, value, dateRange, isRange]);
+    setDisplayFilteredEntries(newFilteredEntries);
+    setDisplayDate(dateString);
+  }
+}, [dateRange, fetchEntries, filteredEntries, value, isRange]);
 
   return (
     <div className="flex flex-col w-full">
