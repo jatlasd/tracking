@@ -11,7 +11,7 @@ const AccordionComponent = ({ entries }) => {
   return (
 <AccordionList>
     <Accordion className='border-none'>
-        <AccordionHeader className='text-xl font-semibold bg-tiffany-400 font-satoshi border-none'>See Entry Cards</AccordionHeader>
+        <AccordionHeader className='text-xl font-semibold bg-tiffany-400 text-dark-blue-2 font-satoshi border-none'>See Entry Cards</AccordionHeader>
         <AccordionBody>
           <CardContainer entries={entries} className='pb-10'/> 
         </AccordionBody>
