@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import colors from "tailwindcss/colors";
+import colors, { transparent } from "tailwindcss/colors";
 
 module.exports = {
   content: [
@@ -48,7 +48,7 @@ module.exports = {
             brand: {
               faint: colors.blue[50],
               muted: '#3d5a7f',
-              subtle: 'transparent',
+              subtle: 'hsl(174, 50%, 46%)',
               DEFAULT: '#283a53',
               emphasis: colors.blue[700],
               inverted: colors.white,
@@ -130,6 +130,35 @@ module.exports = {
       pattern:
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
+    ...["[#c1e6e2]"].flatMap((customColor) => [
+      `bg-${customColor}`,
+      `border-${customColor}`,
+      `hover:bg-${customColor}`,
+      `hover:border-${customColor}`,
+      `hover:text-${customColor}`,
+      `fill-${customColor}`,
+      `ring-${customColor}`,
+      `stroke-${customColor}`,
+      `text-${customColor}`,
+      `ui-selected:bg-${customColor}`,
+      `ui-selected:border-${customColor}`,
+      `ui-selected:text-${customColor}`,
+    ]),
+    ...["[#FFc966]"].flatMap((customColor) => [
+      `bg-${customColor}`,
+      `border-${customColor}`,
+      `hover:bg-${customColor}`,
+      `hover:border-${customColor}`,
+      `hover:text-${customColor}`,
+      `fill-${customColor}`,
+      `ring-${customColor}`,
+      `stroke-${customColor}`,
+      `text-${customColor}`,
+      `ui-selected:bg-${customColor}`,
+      `ui-selected:border-${customColor}`,
+      `ui-selected:text-${customColor}`,
+    ]),
+    
   ],
   plugins: [require("@headlessui/tailwindcss")],
 };

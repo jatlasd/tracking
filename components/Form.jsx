@@ -15,29 +15,28 @@ const Form = ({ post, setPost, handleSubmit }) => {
       setTriggers(data);
     };
 
-    fetchTriggers();
-  }, []);
-
-  useEffect(() => {
     const fetchSymptoms = async () => {
       const response = await fetch("/api/stored/symptom");
       const data = await response.json();
       setSymptoms(data);
     };
 
+    fetchTriggers();
     fetchSymptoms();
   }, []);
 
   return (
-    <section className="flex-col w-full max-w-full flex-start">
-      <h1 className="head_text">Add</h1>
+    <section className="flex-col w-full max-w-full flex-start pb-10">
+      <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:text-6xl text-tangerine-600">
+        Add
+      </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full mt-10 gap-7 glassmorphism"
+        className="flex flex-col w-full mt-10 gap-7 bg-tiffany-100 p-10 rounded-xl"
       >
         <label>
-          <span className="text-base font-satoshi font-semilbold text-gay-700">
+          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
             Symptom
           </span>
           <AutoComponent
@@ -47,11 +46,10 @@ const Form = ({ post, setPost, handleSubmit }) => {
             labelKey="symptom"
             placeholder="Select Symptom"
           />
-
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semilbold text-gay-700">
+          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
             Trigger
           </span>
           <AutoComponent
@@ -61,11 +59,10 @@ const Form = ({ post, setPost, handleSubmit }) => {
             labelKey="trigger"
             placeholder="Select Trigger"
           />
-
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semilbold text-gay-700">
+          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
             Severity
           </span>
           <div className="flex justify-between gap-2">
@@ -78,7 +75,7 @@ const Form = ({ post, setPost, handleSubmit }) => {
                   onChange={(e) =>
                     setPost({ ...post, severity: e.target.value })
                   }
-                  className="form_input"
+                  className="flex w-full p-3 mt-2 "
                 />
                 {value}
               </label>
@@ -87,21 +84,20 @@ const Form = ({ post, setPost, handleSubmit }) => {
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semilbold text-gay-700">
+          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
             Notes
           </span>
           <textarea
             value={post.notes}
             onChange={(e) => setPost({ ...post, notes: e.target.value })}
             placeholder="Notes"
-            required
-            className="form_textarea"
+            className="w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0"
           />
         </label>
 
         <button
           type="submit"
-          className="px-5 py-1.5 text-sm bg-primary-orange text-white rounded-full"
+          className="px-5 py-1.5 text-lg font-semibold bg-tangerine-500 hover:bg-tangerine-400 text-gray-700 rounded-full"
         >
           Add Symptom
         </button>

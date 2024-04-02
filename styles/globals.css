@@ -8,55 +8,25 @@
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
 */
 
-.pattern {
-  background-color: transparent;
-background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233f4f7f' fill-opacity='0.32'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-
-.button-gradient {
-  border-radius: 22px;
-  background: #ddf4f1;
-  box-shadow:  20px 20px 52px #c2d7d4,
-               -20px -20px 52px #f8ffff;
-               
-}
-
-.filterAuto {
-  width: 12rem !important;
-}
-
-.glass {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.card-width {
-  min-width: 28%;
-}
-
 .main {
   width: 100vw;
-  min-height: 100vh;
+  height: 100%;
   position: fixed;
   display: flex;
   justify-content: center;
-  /* padding: 120px 24px 160px 24px; */
   pointer-events: none;
-  overflow: hidden; /* Prevents extra scrolling */
+  overflow: hidden;
 }
 
-.gradient {
-  position: fixed; /* Changed from absolute to fixed */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to right top, #09203f, #1b3454, #2d4a69, #3f607f, #537895);
-  filter: blur(50%) saturate(150%);
-  z-index: -1; /* Ensure it stays in the background */
+.glass {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 @media screen and (max-width: 640px) {
@@ -65,119 +35,21 @@ background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox=
   }
 }
 
-.asd {
-  color: hsl(206, 28%, 45%);
-}
-
 /* Tailwind Styles */
-
-.app {
-  @apply relative z-10 flex flex-col items-center justify-center mx-auto max-w-7xl sm:px-16;
-}
-
-.black_btn {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
-}
-
-.outline_btn {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
-}
 
 .head_text {
   @apply mt-5 text-5xl font-extrabold leading-[1.15]  sm:text-6xl;
 }
 
-.testing-color {
-  background: hsla(108, 63%, 84%, 1);
-  background: linear-gradient(180deg, hsla(108, 63%, 84%, 1) 36%, hsla(226, 37%, 62%, 1) 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-}
-
-.text-gradient {
-  color: #e0e0e0
-  /* background: hsla(33, 100%, 50%, 1);
-
-  background: radial-gradient(circle, hsla(33, 100%, 50%, 1) 60%, hsla(51, 100%, 50%, 1) 100%);
-  
-  background: -moz-radial-gradient(circle, hsla(33, 100%, 50%, 1) 60%, hsla(51, 100%, 50%, 1) 100%);
-  
-  background: -webkit-radial-gradient(circle, hsla(33, 100%, 50%, 1) 60%, hsla(51, 100%, 50%, 1) 100%);  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent; */
-}
-
-
 .desc {
-  @apply  max-w-2xl text-lg text-gray-600 sm:text-xl;
-}
-
-.search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
-}
-
-.copy_btn {
-  @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+  @apply max-w-2xl text-lg text-gray-600 sm:text-xl;
 }
 
 .glassmorphism {
   @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
 }
 
-.prompt_layout {
-  @apply py-8 space-y-6 sm:columns-2 sm:gap-6 xl:columns-3;
-}
-
 /* Feed Component */
-.feed {
+/* .feed {
   @apply flex flex-col items-center justify-center w-full max-w-xl gap-2 mx-auto mt-16;
-}
-
-/* Form Component */
-.form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
-}
-
-.form_input {
-  @apply flex w-full p-3 mt-2 text-sm text-gray-500 rounded-lg outline-0;
-}
-
-.combo_form_input {
-  @apply flex w-full py-3 pl-10 mt-2 text-sm text-gray-500 rounded-lg outline-0;
-}
-
-/* Nav Component */
-.logo_text {
-  @apply text-lg font-semibold tracking-wide text-black max-sm:hidden font-satoshi;
-}
-
-.dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
-}
-
-.dropdown_link {
-  @apply text-sm font-medium text-gray-700 font-inter hover:text-gray-500;
-}
-
-/* PromptCard Component */
-.prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
-}
-
-.flex-center {
-  @apply flex items-center justify-center;
-}
-
-.flex-start {
-  @apply flex items-start justify-start;
-}
-
-.flex-end {
-  @apply flex items-center justify-end;
-}
-
-.flex-between {
-  @apply flex items-center justify-between;
-}
+} */

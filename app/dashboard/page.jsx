@@ -1,6 +1,7 @@
 "use client";
 
 import Feed from "@components/Feed";
+import { handleDelete } from "@utils/utils";
 
 import { useState, useEffect } from "react";
 
@@ -39,8 +40,14 @@ const Dashboard = () => {
 
   return (
     <section className="flex-col w-full flex-center">
-      <h1 className="text-center head_text">Dashboard</h1>
-      <Feed entries={entries} />
+      <h1 className="text-center mt-5 text-5xl font-extrabold leading-[1.15] sm:text-6xl text-tangerine-600">
+        Dashboard
+      </h1>
+      <Feed
+        entries={entries}
+        handleDelete={(id) => handleDelete(id, entries, setEntries)}
+        isDashboard={true}
+      />
     </section>
   );
 };

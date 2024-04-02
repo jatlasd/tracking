@@ -37,7 +37,7 @@ const AddSymptom = () => {
           }),
           symptom: capitalizeWords(post.symptom),
           trigger: capitalizeWords(post.trigger),
-          time: new Date().toLocaleTimeString("en-US", { hour12: true }),
+          time: new Date().toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: true }),
           severity: post.severity,
           notes: post.notes,
           isQuickAdd: false
@@ -62,7 +62,7 @@ const AddSymptom = () => {
   };
 
   return (
-    <div className="w-1/2">
+    <div className="w-5/6 lg:w-1/2">
       <Form post={post} setPost={setPost} handleSubmit={addSymptom} />
     </div>
   );

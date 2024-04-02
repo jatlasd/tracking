@@ -6,5 +6,5 @@ export const getUniqueDatesWithEntries = (entries) => {
       uniqueDates.push(new Date(dateStr));
     });
   
-    return uniqueDates.sort((a, b) => a - b); // Ensure dates are in ascending order
+    return uniqueDates.sort((a, b) => a - b); 
   };

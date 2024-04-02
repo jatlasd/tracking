@@ -16,7 +16,6 @@
     "@mui/material": "^5.15.12",
     "@remixicon/react": "^4.2.0",
     "@tremor/react": "^3.14.1",
-    "antd": "^5.15.3",
     "bcrypt": "^5.1.1",
     "install": "^0.13.0",
     "lucide-react": "^0.356.0",

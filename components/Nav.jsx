@@ -7,21 +7,25 @@ import { useState } from "react";
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleNavbar = () => setIsOpen(!isOpen);
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+    document.body.classList.toggle('no-scroll', !isOpen);
+  };
   const pathname = usePathname();
   const links = [
     { href: "/", label: "Home" },
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/add", label: "Add Symptom" },
+    { href: "/add", label: "Add Entry" },
     { href: "/add/quick", label: "Quick Add" },
     { href: "/filter", label: "Filter" },
     { href: "/trends", label: "Trends" },
+    { href: "/archive", label: "Archive" }
   ];
 
   return (
     <>
-      <nav className="flex justify-end w-full  pt-3 mb-10">
-        <div className="hidden md:flex gap-3">
+      <nav className="flex justify-end w-full pt-3 mb-10">
+        <div className="hidden gap-3 md:flex">
           {links.map(({ href, label }) => (
             <Link
               key={href}
@@ -36,18 +40,18 @@ const Nav = () => {
             </Link>
           ))}
         </div>
-        <div className="md:hidden">
-          <button onClick={toggleNavbar}>{isOpen ? <X className="mr-10 mt-5"/> : <Menu className="mr-10 mt-5"/>}</button>
+        <div className="z-50 md:hidden">
+          <button onClick={toggleNavbar}>{isOpen ? <X className="mt-5 mr-10"/> : <Menu className="mt-5 mr-10"/>}</button>
         </div>
       </nav>
       {isOpen && (
-        <div className="absolute z-20 top-0 glass p-10 h-screen w-2/3 flex flex-col items-center justify-center">
-          <div className="h-2/3 flex flex-col items-center justify-between">
+        <div className="absolute top-0 z-20 flex flex-col items-center justify-center w-full h-screen pt-10 glass" onClick={toggleNavbar}>
+          <div className="flex flex-col items-center justify-between h-2/3">
             {links.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className="text-3xl font-bold w-full text-center text-dark-blue-2"
+                className="w-full text-3xl font-bold text-center text-dark-blue-2"
                 onClick={toggleNavbar}
               >
                 {label}
