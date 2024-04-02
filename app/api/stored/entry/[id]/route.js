@@ -3,6 +3,7 @@ import Entry from "@models/entry";
 import Symptom from "@models/symptom";
 import Trigger from "@models/trigger";
 
+export const dynamic = 'force-dynamic'
 export const DELETE = async (request, { params }) => {
   try {
     await connectToDB();
