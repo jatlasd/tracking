@@ -57,7 +57,7 @@ const Card = ({
           showFullNotes ? "" : "max-h-[230px] truncate"
         } mt-4 bg-white shadow-lg rounded-xl sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-row`}
       >
-        <div className="px-6 py-4 ">
+        <div className="px-6 py-4 max-w-[326px]">
           {entries.map(([entryKey, value]) => (
             <Entry
               key={entryKey}
