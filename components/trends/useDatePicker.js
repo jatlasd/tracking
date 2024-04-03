@@ -44,23 +44,22 @@ export const useDatePicker = (
 
   const handleChange = (newValue) => {
     if (type === "day") {
-      if (newValue) {
-        const newDate = new Date(newValue);
-        setDate(newDate);
-        const newDisplayDate = newDate.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        });
-        setDisplayDate(newDisplayDate);
-        onDisplayDateChange(newDisplayDate);
-      } 
+      const newDate = newValue ? new Date(newValue) : null;
+      setDate(newDate);
+      const newDisplayDate = newDate ? newDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+      }) : "";
+      setDisplayDate(newDisplayDate);
+      onDisplayDateChange(newDisplayDate);
     } else if (type === "range") {
-      if (newValue.from && newValue.to) {
-        const fromDate = new Date(newValue.from);
-        const toDate = new Date(newValue.to);
+      if (newValue && newValue.hasOwnProperty('from') && newValue.hasOwnProperty('to')) {
+        const fromDate = newValue.from ? new Date(newValue.from) : undefined;
+        const toDate = newValue.to ? new Date(newValue.to) : undefined;
         setDateRange({ from: fromDate, to: toDate });
-        const displayDateRange = `${fromDate.toLocaleDateString("en-US", {
+
+        const displayDateRange = fromDate && toDate ? `${fromDate.toLocaleDateString("en-US", {
           year: "numeric",
           month: "numeric",
           day: "numeric",
@@ -68,9 +67,13 @@ export const useDatePicker = (
           year: "numeric",
           month: "numeric",
           day: "numeric",
-        })}`;
+        })}` : "";
         setDisplayDate(displayDateRange);
         onDisplayDateChange(displayDateRange);
+      } else {
+        setDateRange({ from: undefined, to: undefined });
+        setDisplayDate("");
+        onDisplayDateChange("");
       }
     }
   };
