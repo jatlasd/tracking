@@ -28,8 +28,8 @@ const Trends = () => {
   };
 
   return (
-    <div className="flex flex-col w-full ">
-      <Box sx={{ width: "100%" }}>
+    <div className="flex flex-col w-full">
+      <Box sx={{ width: "100%" }} className="ml-4 md:ml-0">
         <Tabs value={value} onChange={handleChange}>
           <Tab key="overall" value="overall" label="Overall" />
           <Tab key="dayToDay" value="dayToDay" label="Individual Dates" />

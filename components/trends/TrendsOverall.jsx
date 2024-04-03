@@ -67,7 +67,7 @@ const TrendsOverall = () => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mt-4 md:mt-0">
         {[
           { range: "week", label: "1 Week", action: setWeekRange },
           { range: "month", label: "1 Month", action: setMonthRange },
