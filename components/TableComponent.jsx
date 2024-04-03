@@ -21,8 +21,8 @@ const TableComponent = ({ entries, handleDelete }) => {
 
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  const fontSize = isMobile ? "text-sm" : "text-lg";
-  const buttonSize = isMobile ? "py-1 px-4 text-sm" : "px-8 py-2 text-lg";
+  const fontSize = isMobile ? "text-md" : "text-lg";
+  const buttonSize = isMobile ? "px-4 py-2 text-md" : "px-4 py-2 text-lg";
   const headerStyles =
     "font-satoshi font-bold md:font-extrabold text-dark-blue-2";
 
