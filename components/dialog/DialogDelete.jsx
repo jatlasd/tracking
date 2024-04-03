@@ -6,7 +6,7 @@ const DialogDelete = ({
   buttonSize,
   entryToDelete,
   setIsDeleteDialog,
-  isDashboard
+  isDashboard,
 }) => {
   return (
     <div>
@@ -17,14 +17,21 @@ const DialogDelete = ({
           onClick={() => {
             setIsOpen(false);
             handleDelete(entryToDelete);
-            {isDashboard ? (setTimeout(() => setIsOpen(false), 500)) : (setTimeout(() => setIsDeleteDialog(false), 500))}
+            {
+              isDashboard
+                ? setTimeout(() => setIsOpen(false), 500)
+                : setTimeout(() => setIsDeleteDialog(false), 500);
+            }
           }}
         >
           Ok
         </button>
         <button
           className={`${buttonSize} text-lg font-semibold text-white border rounded-xl bg-tangerine-600 font-satoshi border-none`}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+            setTimeout(() => setIsDeleteDialog(false), 500);
+          }}
         >
           Cancel
         </button>
