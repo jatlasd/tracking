@@ -116,10 +116,10 @@ const QuickAdd = () => {
               Back to Symptoms
             </button>
           </div>
-        ) : null}
+        ) : <div className="h-[80px]">{''}</div>}
         <div
           className={`flex flex-wrap items-center justify-center w-full p-5 ${
-            isSymptomSelected ? "" : "mt-10"
+            isSymptomSelected ? "" : "mt-4"
           } md:max-lg:w-4/6 lg:w-1/2`}
         >
           {!isSymptomSelected
@@ -141,7 +141,7 @@ const QuickAdd = () => {
                     setTrigger(trigger.trigger);
                     setIsOpen(true);
                   }}
-                  className="h-16 m-4 text-xl font-bold border rounded-md shadow-md w-32 md:h-32 md:w-44 text-dark-blue-2 border-dark-blue-2 bg-tiffany-400"
+                  className="h-16 m-4 text-xl font-bold border rounded-md shadow-lg w-32 md:h-32 md:w-44 text-dark-blue-2 border-dark-blue-2 bg-tiffany-400"
                 >
                   {trigger.trigger}
                 </button>
