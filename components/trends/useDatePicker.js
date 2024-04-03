@@ -6,8 +6,8 @@ export const useDatePicker = (
   type,
   onDisplayDateChange
 ) => {
-  const [date, setDate] = useState(initialDate);
-  const [dateRange, setDateRange] = useState({ from: null, to: initialDate });
+  const [date, setDate] = useState(type === "day" ? undefined : initialDate);
+  const [dateRange, setDateRange] = useState(type === "range" ? { from: undefined, to: undefined } : { from: null, to: initialDate });
   const [displayDate, setDisplayDate] = useState("");
   const [filteredEntries, setFilteredEntries] = useState([]);
 
@@ -54,7 +54,7 @@ export const useDatePicker = (
         });
         setDisplayDate(newDisplayDate);
         onDisplayDateChange(newDisplayDate);
-      }
+      } 
     } else if (type === "range") {
       if (newValue.from && newValue.to) {
         const fromDate = new Date(newValue.from);

@@ -14,12 +14,12 @@ const TrendsDatePick = ({
     date: date1,
     dateRange: dateRange1,
     handleChange: handleChange1,
-  } = useDatePicker(new Date(), onFilteredEntries1Update, type, onDisplayDate1Update);
+  } = useDatePicker(undefined, onFilteredEntries1Update, type, onDisplayDate1Update);
   const {
     date: date2,
     dateRange: dateRange2,
     handleChange: handleChange2,
-  } = useDatePicker(new Date(), onFilteredEntries2Update, type, onDisplayDate2Update);
+  } = useDatePicker(undefined, onFilteredEntries2Update, type, onDisplayDate2Update);
 
   return (
     <div className="flex flex-col items-center justify-center w-full mt-6 mb-4 md:flex-row">
@@ -33,7 +33,7 @@ const TrendsDatePick = ({
         <DateRangePicker
           value={dateRange1}
           onValueChange={(newValue) => handleChange1(newValue, type)}
-          className="w-full mx-0 md:w-2/3 md:mx-6 mb-4 md:mb-0"
+          className="w-full mx-0 mb-4 md:w-2/3 md:mx-6 md:mb-0"
         />
       )}
       {type === "day" ? (

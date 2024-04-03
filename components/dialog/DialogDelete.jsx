@@ -24,9 +24,7 @@ const DialogDelete = ({
         </button>
         <button
           className={`${buttonSize} text-lg font-semibold text-white border rounded-xl bg-tangerine-600 font-satoshi border-none`}
-          onClick={() => {
-            {isDashboard ?  setIsOpen(false) : setIsDeleteDialog(false)}
-          }}
+          onClick={setIsOpen(false)}
         >
           Cancel
         </button>

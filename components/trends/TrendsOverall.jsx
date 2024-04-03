@@ -83,19 +83,19 @@ const TrendsOverall = () => {
           </button>
         ))}
       </div>
-      <div className="p-2 mt-8 bg-white rounded-xl">
+      <div className="p-2 mt-8 bg-white rounded-xl mx-4 md:mx-0">
         <h3 className="p-4 text-3xl font-extrabold text-center font-satoshi text-dark-blue-2">
           Symptom Occurences
         </h3>
         <BarChartComponent entries={filteredEntries} type="symptom" />
       </div>
-      <div className="p-2 my-4 bg-white rounded-xl">
+      <div className="p-2 my-4 bg-white rounded-xl mx-4 md:mx-0">
         <h3 className="p-4 text-3xl font-extrabold text-center font-satoshi text-dark-blue-2">
           Trigger Occurences
         </h3>
         <BarChartComponent entries={filteredEntries} type="trigger" />
       </div>
-      <div className="p-2 mb-4 bg-white rounded-xl">
+      <div className="p-2 mb-4 bg-white rounded-xl mx-4 md:mx-0">
         <h3 className="p-4 text-3xl font-extrabold text-center font-satoshi text-dark-blue-2">
           Number of Entries Per Day
         </h3>

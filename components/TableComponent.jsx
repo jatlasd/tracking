@@ -122,7 +122,7 @@ const TableComponent = ({ entries, handleDelete }) => {
                       width: { sm: column.minWidth, md: column.mdWidth },
                     }}
                     className={`${fontSize} ${
-                      isMobile && column.id === "time" ? "hidden" : ""
+                      isMobile && (column.id === "time" || column.id === "severity") ? "hidden" : ""
                     } ${headerStyles}`}
                   >
                     {column.label}

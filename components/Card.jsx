@@ -4,14 +4,24 @@ import { useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import DialogDelete from "./dialog/DialogDelete";
 
-const Entry = ({ entryKey, value, showFullNotes }) => (
+const Entry = ({ entryKey, value, showFullNotes, isDashboard, setIsOpen }) => (
   <div className="flex" key={entryKey}>
-    <h1 className="text-lg font-bold">
+    <h1 className='text-lg font-bold'>
       {entryKey.charAt(0).toUpperCase() + entryKey.slice(1)}:
     </h1>
-    <h1 className={`pr-4 ml-3 max-w-2xl text-lg text-gray-600 sm:text-xl ${showFullNotes ? "" : "truncate"}`}>
+
+    <h1
+      className={`pr-4 ml-3 max-w-2xl text-lg text-gray-600 sm:text-xl ${
+        showFullNotes ? "" : "truncate"
+      } ${entryKey === "date" ? 'w-3/5' : ''}`}
+    >
       {value}
     </h1>
+    {entryKey === 'date' && isDashboard && (
+      <button onClick={() => setIsOpen(true)} className="ml-4">
+        <Image src="/trash.png" alt="delete" width={30} height={30} />
+      </button>
+    )}
   </div>
 );
 
@@ -36,7 +46,7 @@ const Card = ({
 
   const [showFullNotes, setShowFullNotes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const shouldShowToggle = notes && notes.length > 100;
+  const shouldShowToggle = notes && notes.length > 25;
   const toggleNotes = () => setShowFullNotes(!showFullNotes);
 
   return (
@@ -54,16 +64,18 @@ const Card = ({
       </Dialog>
       <div
         className={`flex-auto max-w-[326px] min-h-[230px] ${
-          showFullNotes ? "" : "max-h-[230px] truncate"
+          showFullNotes ? "" : "max-h-[230px]"
         } mt-4 bg-white shadow-lg rounded-xl sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-row`}
       >
-        <div className="px-6 py-4 max-w-[326px]">
+        <div className="pl-6 py-4 max-w-[326px]">
           {entries.map(([entryKey, value]) => (
             <Entry
               key={entryKey}
               entryKey={entryKey}
               value={value}
               showFullNotes={showFullNotes}
+              isDashboard={isDashboard}
+              setIsOpen={setIsOpen}
             />
           ))}
           {shouldShowToggle && (
@@ -75,13 +87,13 @@ const Card = ({
             </button>
           )}
         </div>
-        <div>
+        {/* <div className="min-w-[50px]">
           {isDashboard && (
             <button onClick={() => setIsOpen(true)} className="mt-4">
               <Image src="/trash.png" alt="delete" width={30} height={30} />
             </button>
           )}
-        </div>
+        </div> */}
       </div>
     </>
   );
