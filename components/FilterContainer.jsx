@@ -58,7 +58,7 @@ const FilterContainer = ({ filteredEntries, displayDate }) => {
         Filter by Symptom or Trigger
       </Divider>
       <div className="flex flex-col items-center w-full md:flex-row justify-evenly">
-        <div className="w-full mt-4 md:w-1/3 md:mt-0">
+        <div className="w-5/6 md:w-1/3 mt-4  md:mt-0">
           <AutoComponent
             options={symptoms}
             selectedValue={selectedSymptom}
@@ -67,7 +67,7 @@ const FilterContainer = ({ filteredEntries, displayDate }) => {
             placeholder="Select Symptom"
           />
         </div>
-        <div className="w-full mt-4 md:w-1/3 md:mt-0">
+        <div className="w-5/6 md:w-1/3 mt-4  md:mt-0">
           <AutoComponent
             options={triggers}
             selectedValue={selectedTrigger}
@@ -82,26 +82,26 @@ const FilterContainer = ({ filteredEntries, displayDate }) => {
       <Divider className="py-10 text-dark-blue-2" sx={{}}>
         Number of Symptom and Trigger Entries
       </Divider>
-      <div className="flex px-4 bg-white rounded-xl py-2">
+      <div className="flex px-0 md:px-4 mx-2 md:mx-0 bg-white rounded-xl py-2">
         <BarChartComponent entries={filteredEntriesFinal} type="symptom" />
         <BarChartComponent entries={filteredEntriesFinal} type="trigger" />
       </div>
       <Divider className="py-10 text-dark-blue-2" sx={{}}>
         Most Common Triggers Per Symptom
       </Divider>
-      <div className="px-4">
+      <div className="px-0 md:px-4 mx-2 md:mx-0">
         <BarListComponent entries={filteredEntriesFinal} />
       </div>
       <Divider className="py-10 text-dark-blue-2" sx={{}}>
         Spread of Entries Over Time
       </Divider>
-      <div className="px-4 pb-14 bg-white rounded-xl">
+      <div className="px-0 md:px-4 mx-2 md:mx-0 pb-14 bg-white rounded-xl">
         <LineChartComponent entries={filteredEntriesFinal} />
       </div>
       <Divider className="py-10 text-dark-blue-2" sx={{}}>
         See All Entries
       </Divider>
-      <div className="px-4 pb-14">
+      <div className="px-0 md:px-4 mx-2 md:mx-0 pb-14">
         <AccordionComponent entries={filteredEntriesFinal} />
       </div>
     </div>
