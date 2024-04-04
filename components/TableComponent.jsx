@@ -36,6 +36,7 @@ const TableComponent = ({ entries, handleDelete }) => {
       groups[date] = [];
     }
     groups[date].push(entry);
+    groups[date].sort((a, b) => new Date(`1970/01/01 ${a.time}`) - new Date(`1970/01/01 ${b.time}`));
     return groups;
   }, {});
 
