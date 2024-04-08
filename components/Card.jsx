@@ -31,7 +31,7 @@ const Entry = ({
           <Image src="/trash.png" alt="delete" width={30} height={30} />
         </button>
         <button
-          className="ml-4"
+          className="mx-4"
           onClick={() => {
             setIsEdit(true);
             setIsOpen(true);
