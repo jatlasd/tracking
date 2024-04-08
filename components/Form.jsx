@@ -4,7 +4,7 @@ import AutoComponent from "./AutoComponent";
 
 import { useState, useEffect } from "react";
 
-const Form = ({ post, setPost, handleSubmit }) => {
+const Form = ({ post, setPost, handleSubmit, type }) => {
   const [triggers, setTriggers] = useState([]);
   const [symptoms, setSymptoms] = useState([]);
 
@@ -26,17 +26,17 @@ const Form = ({ post, setPost, handleSubmit }) => {
   }, []);
 
   return (
-    <section className="flex-col w-full max-w-full flex-start pb-10">
+    <section className="flex-col w-full max-w-full pb-10 flex-start">
       <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:text-6xl text-tangerine-600">
-        Add
+        {type === "edit" ? "Edit" : "Add"}
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full mt-10 gap-7 bg-tiffany-100 p-10 rounded-xl"
+        className="flex flex-col w-full p-10 mt-10 gap-7 bg-tiffany-100 rounded-xl"
       >
         <label>
-          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
+          <span className="text-base font-semibold font-satoshi text-dark-blue-2">
             Symptom
           </span>
           <AutoComponent
@@ -45,11 +45,12 @@ const Form = ({ post, setPost, handleSubmit }) => {
             setSelectedValue={(value) => setPost({ ...post, symptom: value })}
             labelKey="symptom"
             placeholder="Select Symptom"
+            
           />
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
+          <span className="text-base font-semibold font-satoshi text-dark-blue-2">
             Trigger
           </span>
           <AutoComponent
@@ -62,7 +63,7 @@ const Form = ({ post, setPost, handleSubmit }) => {
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
+          <span className="text-base font-semibold font-satoshi text-dark-blue-2">
             Severity
           </span>
           <div className="flex justify-between gap-2">
@@ -71,7 +72,7 @@ const Form = ({ post, setPost, handleSubmit }) => {
                 <input
                   type="radio"
                   value={value}
-                  checked={post.severity === value.toString()}
+                  checked={Number(post.severity) === value}
                   onChange={(e) =>
                     setPost({ ...post, severity: e.target.value })
                   }
@@ -84,7 +85,7 @@ const Form = ({ post, setPost, handleSubmit }) => {
         </label>
 
         <label>
-          <span className="text-base font-satoshi font-semibold text-dark-blue-2">
+          <span className="text-base font-semibold font-satoshi text-dark-blue-2">
             Notes
           </span>
           <textarea
@@ -99,7 +100,7 @@ const Form = ({ post, setPost, handleSubmit }) => {
           type="submit"
           className="px-5 py-1.5 text-lg font-semibold bg-tangerine-500 hover:bg-tangerine-400 text-gray-700 rounded-full"
         >
-          Add Symptom
+          {type === "edit" ? "Submit Changes" : "Add"}
         </button>
       </form>
     </section>

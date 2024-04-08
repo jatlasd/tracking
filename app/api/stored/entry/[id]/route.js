@@ -4,6 +4,20 @@ import Symptom from "@models/symptom";
 import Trigger from "@models/trigger";
 
 export const dynamic = 'force-dynamic'
+
+export const GET = async(request, { params }) => {
+  try {
+    await connectToDB();
+
+    const query = { _id: params.id };
+    const entry = await Entry.findById(query)
+    return new Response(JSON.stringify(entry), { status: 200 });
+  }
+  catch(error) {
+    return new Response("Failed to fetch the entry", { status: 500 });
+  }
+}
+
 export const DELETE = async (request, { params }) => {
   try {
     await connectToDB();
@@ -33,3 +47,26 @@ export const DELETE = async (request, { params }) => {
     });
   }
 };
+
+export const PATCH = async (request, { params }) => {
+  const { symptom, trigger, severity, notes } = await request.json();
+  try {
+    await connectToDB();
+
+    const query = { _id: params.id };
+    const entry = await Entry.findById(query);
+
+    entry.symptom = symptom;
+    entry.trigger = trigger;
+    entry.severity = severity;
+    entry.notes = notes;
+
+    await entry.save();
+
+    return new Response(`Entry updated successfully`, { status: 200 });
+  } catch (error) {
+    return new Response(`Failed to update the entry ${params.id}`, {
+      status: 500,
+    });
+  }
+}

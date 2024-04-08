@@ -13,11 +13,13 @@ import TableRow from "@mui/material/TableRow";
 import { Dialog, DialogPanel } from "@tremor/react";
 import DialogDelete from "./dialog/DialogDelete";
 import DialogShowFullEntry from "./dialog/DialogShowFullEntry";
+import DialogEdit from "./dialog/DialogEdit";
 
 const TableComponent = ({ entries, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [isDeleteDialog, setIsDeleteDialog] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -36,7 +38,10 @@ const TableComponent = ({ entries, handleDelete }) => {
       groups[date] = [];
     }
     groups[date].push(entry);
-    groups[date].sort((a, b) => new Date(`1970/01/01 ${a.time}`) - new Date(`1970/01/01 ${b.time}`));
+    groups[date].sort(
+      (a, b) =>
+        new Date(`1970/01/01 ${a.time}`) - new Date(`1970/01/01 ${b.time}`)
+    );
     return groups;
   }, {});
 
@@ -86,7 +91,7 @@ const TableComponent = ({ entries, handleDelete }) => {
 
   return (
     <>
-      <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+      <Dialog open={isOpen} onClose={(val) => {setIsOpen(val); setTimeout(() => setIsDeleteDialog(false), 300)}} static={true}>
         <DialogPanel>
           {isDeleteDialog ? (
             <DialogDelete
@@ -96,12 +101,20 @@ const TableComponent = ({ entries, handleDelete }) => {
               entryToDelete={selectedEntry._id}
               setIsDeleteDialog={setIsDeleteDialog}
             />
+          ) : isEdit ? (
+            <DialogEdit
+              setIsOpen={setIsOpen}
+              setIsEdit={setIsEdit}
+              buttonSize={buttonSize}
+              editPost={selectedEntry._id}
+            />
           ) : (
             <DialogShowFullEntry
               setIsOpen={setIsOpen}
               buttonSize={buttonSize}
               selectedEntry={selectedEntry}
               setIsDeleteDialog={setIsDeleteDialog}
+              setIsEdit={setIsEdit}
             />
           )}
         </DialogPanel>
@@ -123,7 +136,10 @@ const TableComponent = ({ entries, handleDelete }) => {
                       width: { sm: column.minWidth, md: column.mdWidth },
                     }}
                     className={`${fontSize} ${
-                      isMobile && (column.id === "time" || column.id === "severity") ? "hidden" : ""
+                      isMobile &&
+                      (column.id === "time" || column.id === "severity")
+                        ? "hidden"
+                        : ""
                     } ${headerStyles}`}
                   >
                     {column.label}
@@ -160,25 +176,38 @@ const TableComponent = ({ entries, handleDelete }) => {
                         sx={{ border: 0, "& > *": { borderBottom: "unset" } }}
                       >
                         <TableCell
+                          // padding="none"
                           sx={{ ...borderStyle, width: { sm: "4%", md: "8%" } }}
                         >
-                          <button
-                            onClick={() => {
-                              if (!isMobile) {
-                                setIsDeleteDialog(true);
-                              }
-                              setIsOpen(true);
-                              setSelectedEntry(entry);
-                            }}
-                            className="mt-4 md:ml-5"
-                            style={{ minWidth: "30px", minHeight: "30px" }}
-                          >
-                            <img
-                              src={isMobile ? "/eye.png" : "/trash.png"}
-                              alt={isMobile ? "View" : "Delete"}
-                              className="w-8 h-8 "
-                            />
-                          </button>
+                          <div className="flex flex-col justify-evenly items-center">
+                            <button
+                              className="hidden md:block "
+                              onClick={() => {
+                                setIsEdit(true);
+                                setIsOpen(true);
+                                setSelectedEntry(entry);
+                              }}
+                            >
+                              <img src="/pencil.svg" className="w-6 h-6 " />
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (!isMobile) {
+                                  setIsDeleteDialog(true);
+                                }
+                                setIsOpen(true);
+                                setSelectedEntry(entry);
+                              }}
+                              className="my-2"
+                              style={{ minWidth: "30px", minHeight: "30px" }}
+                            >
+                              <img
+                                src={isMobile ? "/eye.png" : "/trash.png"}
+                                alt={isMobile ? "View" : "Delete"}
+                                className="w-8 h-8"
+                              />
+                            </button>
+                          </div>
                         </TableCell>
                         <TableCell
                           className={`${fontSize} ${isMobile ? "hidden" : ""}`}

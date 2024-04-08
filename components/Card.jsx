@@ -3,24 +3,43 @@ import { Dialog, DialogPanel } from "@tremor/react";
 import { useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import DialogDelete from "./dialog/DialogDelete";
+import DialogEdit from "./dialog/DialogEdit";
 
-const Entry = ({ entryKey, value, showFullNotes, isDashboard, setIsOpen }) => (
+const Entry = ({
+  entryKey,
+  value,
+  showFullNotes,
+  isDashboard,
+  setIsOpen,
+  setIsEdit,
+}) => (
   <div className="flex" key={entryKey}>
-    <h1 className='text-lg font-bold'>
+    <h1 className="text-lg font-bold">
       {entryKey.charAt(0).toUpperCase() + entryKey.slice(1)}:
     </h1>
 
     <h1
       className={`pr-4 ml-3 max-w-2xl text-lg text-gray-600 sm:text-xl ${
         showFullNotes ? "" : "truncate"
-      } ${entryKey === "date" ? 'w-3/5' : ''}`}
+      } ${entryKey === "date" ? "w-3/5" : ""}`}
     >
       {value}
     </h1>
-    {entryKey === 'date' && isDashboard && (
-      <button onClick={() => setIsOpen(true)} className="ml-4">
-        <Image src="/trash.png" alt="delete" width={30} height={30} />
-      </button>
+    {entryKey === "date" && isDashboard && (
+      <>
+        <button onClick={() => setIsOpen(true)} className="ml-6">
+          <Image src="/trash.png" alt="delete" width={30} height={30} />
+        </button>
+        <button
+          className="ml-4"
+          onClick={() => {
+            setIsEdit(true);
+            setIsOpen(true);
+          }}
+        >
+          <Image src="pencil.svg" alt="edit" width={25} height={25}/>
+        </button>
+      </>
     )}
   </div>
 );
@@ -44,6 +63,7 @@ const Card = ({
 
   const buttonSize = isMobile ? "py-1 px-4 text-sm" : "px-8 py-2 text-lg";
 
+  const [isEdit, setIsEdit] = useState(false);
   const [showFullNotes, setShowFullNotes] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const shouldShowToggle = notes && notes.length > 25;
@@ -51,15 +71,26 @@ const Card = ({
 
   return (
     <>
-      <Dialog open={isOpen} onClose={(val) => setIsOpen(val)} static={true}>
+      <Dialog open={isOpen} onClose={(val) => {setIsOpen(val); setTimeout(() => setIsEdit(false), 300)}} static={true}>
         <DialogPanel>
-          <DialogDelete
+          {isEdit ? (
+            <DialogEdit 
             setIsOpen={setIsOpen}
             handleDelete={handleDelete}
             buttonSize={buttonSize}
-            entryToDelete={id}
+            editPost={id}
             isDashboard={"true"}
-          />
+            setIsEdit={setIsEdit}
+            />
+          ) : (
+            <DialogDelete
+              setIsOpen={setIsOpen}
+              handleDelete={handleDelete}
+              buttonSize={buttonSize}
+              entryToDelete={id}
+              isDashboard={"true"}
+            />
+          )}
         </DialogPanel>
       </Dialog>
       <div
@@ -76,6 +107,7 @@ const Card = ({
               showFullNotes={showFullNotes}
               isDashboard={isDashboard}
               setIsOpen={setIsOpen}
+              setIsEdit={setIsEdit}
             />
           ))}
           {shouldShowToggle && (
@@ -87,13 +119,6 @@ const Card = ({
             </button>
           )}
         </div>
-        {/* <div className="min-w-[50px]">
-          {isDashboard && (
-            <button onClick={() => setIsOpen(true)} className="mt-4">
-              <Image src="/trash.png" alt="delete" width={30} height={30} />
-            </button>
-          )}
-        </div> */}
       </div>
     </>
   );

@@ -1,16 +1,27 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const DialogShowFullEntry = ({
   setIsOpen,
   buttonSize,
   selectedEntry,
   setIsDeleteDialog,
+  setIsEdit,
 }) => {
   const keysOrder = ["date", "time", "symptom", "trigger", "severity", "notes"];
+  const router = useRouter();
 
   return (
     <>
-      <div>
+      <div className="relative">
+        <button
+          className="absolute -top-8 -right-2 m-2 font-extrabold text-2xl text-tangerine-600 font-satoshi"
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        >
+          X
+        </button>
         {keysOrder.map((key) => {
           const value = selectedEntry[key];
           if (
@@ -32,15 +43,16 @@ const DialogShowFullEntry = ({
       </div>
       <div className="flex justify-evenly mt-8">
         <button
-          className={`${buttonSize} text-lg font-semibold border rounded-xl bg-tiffany-500 text-dark-blue-2 font-satoshi border-none`}
+          className={`${buttonSize} text-lg font-semibold rounded-xl font-satoshi bg-tiffany-500 text-dark-blue-2`}
           onClick={() => {
-            setIsOpen(false);
+            router.push(`/edit/${selectedEntry._id}`);
+            setTimeout(() => setIsEdit(false), 300);
           }}
         >
-          Ok
+          Edit
         </button>
         <button
-          className={`${buttonSize} text-lg font-semibold text-white border rounded-xl bg-tangerine-600 font-satoshi border-none`}
+          className={`${buttonSize} text-lg font-semibold text-white rounded-xl bg-tangerine-600 font-satoshi`}
           onClick={() => setIsDeleteDialog(true)}
         >
           Delete
